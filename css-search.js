@@ -7,7 +7,7 @@
         "/config/pages/custom-css",
         "/config/pages/custom-css-popup",
       ];
-      this.cssUrl = "https://cdn.jsdelivr.net/gh/willmyerscode/css-searchbar@0/css-search.min.css";
+      this.cssUrl = "https://cdn.jsdelivr.net/gh/willmyerscode/css-searchbar@0/css-search.min.css?v1";
       this.pollIntervalMs = 400;
       this.locationPollHandle = null;
       this.lastPathname = null;
