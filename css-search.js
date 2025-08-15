@@ -145,7 +145,7 @@
       credit.className = "css-search-credit";
       credit.innerHTML = `
         <span class="css-search-credit-text">built by will-myers.com</span>
-        <span class="css-search-credit-text"><a href="https://Will-Myers.com" target="_blank" rel="noopener noreferrer">see more tools</a></span>`;
+        <span class="css-search-credit-text"><a href="https://toolkit.will-myers.com" target="_blank" rel="noopener noreferrer">see more tools</a></span>`;
 
       this.creditEl = credit;
 
