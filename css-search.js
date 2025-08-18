@@ -7,7 +7,7 @@
         "/config/pages/custom-css",
         "/config/pages/custom-css-popup",
       ];
-      this.cssUrl = "https://cdn.jsdelivr.net/gh/willmyerscode/css-searchbar@0/css-search.min.css?v1";
+      this.cssUrl = "https://cdn.jsdelivr.net/gh/willmyerscode/css-searchbar@0/css-search.min.css?v2";
       this.pollIntervalMs = 400;
       this.locationPollHandle = null;
       this.lastPathname = null;
@@ -97,7 +97,7 @@
       const input = this.doc.createElement("input");
       input.type = "search";
       input.id = "css-search-input";
-      input.placeholder = "Search CSS…";
+      input.placeholder = "Search Custom CSS…";
       this.inputEl = input;
       inputContainer.appendChild(input);
       bar.appendChild(inputContainer);
@@ -144,8 +144,7 @@
       const credit = this.doc.createElement("p");
       credit.className = "css-search-credit";
       credit.innerHTML = `
-        <span class="css-search-credit-text">built by will-myers.com</span>
-        <span class="css-search-credit-text"><a href="https://toolkit.will-myers.com" target="_blank" rel="noopener noreferrer">see more tools</a></span>`;
+        <span class="css-search-credit-text">built by <a href="https://toolkit.will-myers.com" target="_blank" rel="noopener noreferrer">will-myers.com</a></span>`;
 
       this.creditEl = credit;
 
@@ -541,3 +540,5 @@
     cssSearch.init();
   }
 })();
+
+ 
