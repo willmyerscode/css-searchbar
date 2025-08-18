@@ -1,3 +1,5 @@
+
+
 (function () {
   class CSSSearch {
     constructor() {
@@ -7,7 +9,8 @@
         "/config/pages/custom-css",
         "/config/pages/custom-css-popup",
       ];
-      this.cssUrl = "https://cdn.jsdelivr.net/gh/willmyerscode/css-searchbar@0/css-search.min.css?v2";
+      this.cssUrl = "https://cdn.jsdelivr.net/gh/willmyerscode/css-searchbar@0/css-search.min.css";
+
       this.pollIntervalMs = 400;
       this.locationPollHandle = null;
       this.lastPathname = null;
@@ -222,11 +225,23 @@
         const link = this.doc.createElement("link");
         link.id = "css-search-stylesheet";
         link.rel = "stylesheet";
-        link.href = this.cssUrl;
+        link.href = this.buildCacheBustedUrl(this.cssUrl);
         link.onload = () => resolve();
         link.onerror = () => resolve();
         head.appendChild(link);
       });
+    }
+
+    buildCacheBustedUrl(url) {
+      try {
+        const base = this.doc.baseURI || (this.doc.location && this.doc.location.href) || undefined;
+        const parsed = new URL(url, base);
+        parsed.searchParams.set("_cb", String(Date.now()));
+        return parsed.toString();
+      } catch (_e) {
+        const sep = url.indexOf("?") === -1 ? "?" : "&";
+        return url + sep + "_cb=" + Date.now();
+      }
     }
 
     removeSearchBox() {
@@ -540,5 +555,3 @@
     cssSearch.init();
   }
 })();
-
- 
