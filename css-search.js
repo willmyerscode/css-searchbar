@@ -8,7 +8,7 @@
         "/config/pages/custom-css-popup",
       ];
       this.cssUrl = "https://cdn.jsdelivr.net/gh/willmyerscode/css-searchbar@0/css-search.min.css";
-      this.pollIntervalMs = 400;
+      this.pollIntervalMs = 800;
       this.locationPollHandle = null;
       this.lastPathname = null;
       this.inserted = false;
@@ -98,6 +98,7 @@
       input.type = "search";
       input.id = "css-search-input";
       input.placeholder = "Search Custom CSS…";
+      input.autocomplete = "off";
       this.inputEl = input;
       inputContainer.appendChild(input);
       bar.appendChild(inputContainer);
@@ -343,6 +344,15 @@
     }
 
     removeHighlights() {
+      // If using CodeMirror, clear marks via the API to avoid them reappearing on re-render/scroll
+      if (this.cm) {
+        this.clearCmMarks();
+        this.currentMatches = [];
+        this.currentIndex = -1;
+        this.updateCounter();
+        return;
+      }
+
       if (!this.codeRootEl) return;
       const marks = this.codeRootEl.querySelectorAll(".css-search-hit");
       if (!marks || marks.length === 0) return;
@@ -416,6 +426,13 @@
           this.inputEl.focus({preventScroll: true});
           this.inputEl.select && this.inputEl.select();
         } catch (_e) {}
+        // If reopening with an existing query, re-apply highlights
+        try {
+          const existingTerm = String(this.inputEl.value || "").trim();
+          if (existingTerm) {
+            this.highlightTerm(existingTerm);
+          }
+        } catch (_e) {}
         try {
           this.win.requestAnimationFrame(() => {
             try {
@@ -474,11 +491,6 @@
         }
       }
       this.cmMarks = [];
-      if (this.cm && typeof this.cm.setSelection === "function") {
-        try {
-          this.cm.setSelection({line: 0, ch: 0}, {line: 0, ch: 0});
-        } catch (_e) {}
-      }
     }
 
     updateCounter() {
