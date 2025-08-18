@@ -1,5 +1,3 @@
-
-
 (function () {
   class CSSSearch {
     constructor() {
@@ -10,7 +8,6 @@
         "/config/pages/custom-css-popup",
       ];
       this.cssUrl = "https://cdn.jsdelivr.net/gh/willmyerscode/css-searchbar@0/css-search.min.css";
-
       this.pollIntervalMs = 400;
       this.locationPollHandle = null;
       this.lastPathname = null;
